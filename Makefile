@@ -2,7 +2,6 @@ NAME = tetris
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 
 LINK = -lncurses
 
@@ -14,19 +13,27 @@ SRCS = \
 
 OBJS = $(SRCS:.c=.o)
 
+INCLUDE_DIR := include
+
+LIB_FILES := raylib.a
+LIB_INCLUDE_DIR := raylib/src
+
+CFLAGS = -Wall -Wextra -Werror -I$(INCLUDE_DIR) -I$(LIB_INCLUDE_DIR) -g #-fsanitize=address 
+LIBRARY_FLAGS := -lm -ldl -lpthread -lGL -lrt -lX11
+
 GREEN = \e[1;32m
 PURPLE = \e[1;35m
 RESET = \033[0m
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) $(LINK) -o $(NAME)
+$(NAME): $(LIB_FILES) $(OBJS)
+	@$(CC) $(OBJS) $(LIB_FILES) $(CFLAGS) $(LIBRARY_FLAGS) $(LINK) -o $(NAME)
 	@echo "$(GREEN) \nGame Compiled\n$(RESET)"
 	@echo "$(PURPLE)------------------------------------$(RESET)"
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
+	@$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
 	@$(RM) $(OBJS)

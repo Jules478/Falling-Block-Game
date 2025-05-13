@@ -5,31 +5,35 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <string.h>
-# include <curses.h>
 # include <dirent.h>
 # include <stdlib.h>
 # include <errno.h>
+# include "raylib.h"
 
-# define I_COLOUR "\e[0;36m"
-# define O_COLOUR "\e[0;33m"
-# define L_COLOUR "\e[0;37m"
-# define J_COLOUR "\e[0;34m"
-# define S_COLOUR "\e[0;32m"
-# define Z_COLOUR "\e[0;31m"
-# define T_COLOUR "\e[0;35m"
-# define RESET "\e[0m"
+# define I_COLOUR SKYBLUE
+# define O_COLOUR YELLOW
+# define L_COLOUR ORANGE
+# define J_COLOUR BLUE
+# define S_COLOUR GREEN
+# define Z_COLOUR RED
+# define T_COLOUR PURPLE
 
-# define EMPTY 0
-# define I_PIECE 1
-# define O_PIECE 2
-# define L_PIECE 3
-# define J_PIECE 4
-# define S_PIECE 5
-# define Z_PIECE 6
-# define T_PIECE 7
-# define TOP_WALL 8
-# define SIDE_WALL 9
-# define CORNER 10
+
+
+# define SCREEN_WIDTH 1000
+# define SCREEN_HEIGHT 1000
+
+typedef enum types
+{
+	EMPTY,
+	I_PIECE,
+	O_PIECE,
+	L_PIECE,
+	J_PIECE,
+	S_PIECE,
+	Z_PIECE,
+	T_PIECE 
+} t_types;
 
 typedef struct s_coord
 {
@@ -44,12 +48,19 @@ typedef struct s_tile
 	char *colour;
 }	t_tile;
 
+typedef struct s_tetromino
+{
+	int	type;
+	t_coord coord[4];
+	char *colour;
+}	t_tetromino;
+
 typedef struct s_tetris
 {
 	t_tile tile[22][12];
 	t_coord active_piece[5];
 	t_coord next_piece[5];
-
+	int	speed;
 }	t_tetris;
 
 /////////////// FUNCTIONS ///////////////
