@@ -17,11 +17,13 @@
 # define S_COLOUR GREEN
 # define Z_COLOUR RED
 # define T_COLOUR PURPLE
+# define WALL_COLOUR GRAY
 
 
 
 # define SCREEN_WIDTH 1000
-# define SCREEN_HEIGHT 1000
+# define SCREEN_HEIGHT 1200
+# define SIZE 50
 
 typedef enum types
 {
@@ -32,7 +34,8 @@ typedef enum types
 	J_PIECE,
 	S_PIECE,
 	Z_PIECE,
-	T_PIECE 
+	T_PIECE,
+	WALL
 } t_types;
 
 typedef struct s_coord
@@ -40,13 +43,6 @@ typedef struct s_coord
 	int	x;
 	int	y;
 }	t_coord;
-
-typedef struct s_tile
-{
-	t_coord pos;
-	int type;
-	char *colour;
-}	t_tile;
 
 typedef struct s_tetromino
 {
@@ -57,9 +53,9 @@ typedef struct s_tetromino
 
 typedef struct s_tetris
 {
-	t_tile tile[22][12];
-	t_coord active_piece[5];
-	t_coord next_piece[5];
+	int map[22][12];
+	t_tetromino *current;
+	t_tetromino *next;
 	int	speed;
 }	t_tetris;
 

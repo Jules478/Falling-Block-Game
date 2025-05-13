@@ -9,6 +9,8 @@ void	close_game(int ex)
 int	main()
 {
 	t_tetris tetris;
+	int	i;
+	int	j;
 
 	srand(getpid());
 	init_game(&tetris);
@@ -18,13 +20,15 @@ int	main()
 	{
 		BeginDrawing();
 			ClearBackground(RAYWHITE);
-			DrawRectangle(5, 5, 50, 50, I_COLOUR);
-			DrawRectangle(55, 5, 50, 50, L_COLOUR);
-			DrawRectangle(105, 5, 50, 50, J_COLOUR);
-			DrawRectangle(155, 5, 50, 50, T_COLOUR);
-			DrawRectangle(205, 5, 50, 50, S_COLOUR);
-			DrawRectangle(255, 5, 50, 50, Z_COLOUR);
-			DrawRectangle(305, 5, 50, 50, O_COLOUR);
+			i = -1;
+			while (++i < 22)
+			{
+				j = -1;
+				while (++j < 12)
+				{
+					DrawRectangle(j * SIZE, i * SIZE, SIZE - 1, SIZE - 1, RED);
+				}
+			}
 		EndDrawing();
 	}
 	CloseWindow();
