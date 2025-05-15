@@ -14,21 +14,29 @@ int	main()
 
 	srand(getpid());
 	init_game(&tetris);
-	InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Tetris");
 	SetTargetFPS(60);
+	create_window(&tetris);
+	InitWindow(tetris.width, tetris.height, "Tetris");
 	while(!WindowShouldClose())
 	{
 		BeginDrawing();
-			ClearBackground(RAYWHITE);
+			ClearBackground(BLACK);
 			i = -1;
 			while (++i < 22)
 			{
 				j = -1;
 				while (++j < 12)
 				{
-					DrawRectangle(j * SIZE, i * SIZE, SIZE - 1, SIZE - 1, RED);
+					if (tetris.map[i][j] == WALL)
+						DrawRectangle(j * tetris.size, i * tetris.size, tetris.size, tetris.size, GRAY);
+					else
+						DrawRectangle(j * tetris.size, i * tetris.size, tetris.tet_size, tetris.tet_size, RED);
+	
 				}
 			}
+			DrawRectangle(12 * tetris.size, 0 * tetris.size, 10 * tetris.size, 22 * tetris.size, GRAY);
+			DrawRectangle(12 * tetris.size, 1 * tetris.size, 7 * tetris.size, 8 * tetris.size, BLACK);
+			DrawRectangle(12 * tetris.size, 10 * tetris.size, 7 * tetris.size, 11 * tetris.size, BLACK);
 		EndDrawing();
 	}
 	CloseWindow();

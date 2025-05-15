@@ -21,9 +21,7 @@
 
 
 
-# define SCREEN_WIDTH 1000
-# define SCREEN_HEIGHT 1200
-# define SIZE 50
+# define RATIO 24
 
 typedef enum types
 {
@@ -57,12 +55,17 @@ typedef struct s_tetris
 	t_tetromino *current;
 	t_tetromino *next;
 	int	speed;
+	int	height;
+	int	width;
+	int	size;
+	int	tet_size;
 }	t_tetris;
 
 /////////////// FUNCTIONS ///////////////
 
 void	close_game(int ex);
 void	init_game(t_tetris *tetris);
+void	create_window(t_tetris *tetris);
 
 
 #endif
