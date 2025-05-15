@@ -1,5 +1,28 @@
 #include "../include/tetris.h"
 
+t_tetromino *allocate_tetromino(t_tetris *tetris)
+{
+	t_tetromino *tetromino;
+	t_coord *coord;
+	int	i = -1;
+
+	coord = malloc(sizeof(t_coord) * 4);
+	if (!coord)
+		close_game(tetris, 3, false);
+	tetromino = malloc(sizeof(t_tetromino *));
+	if (!tetromino)
+		close_game(tetris, 2, false);
+	while (++i < 5)
+	{
+		coord[i].x = 0;
+		coord[i].y = 0;
+	}
+	tetromino->coord = coord;
+	tetromino->type = 0;
+	tetromino->colour = WALL_COLOUR;
+	return (tetromino);
+}
+
 void	init_game(t_tetris *tetris)
 {
 	int	i = -1;
@@ -16,6 +39,11 @@ void	init_game(t_tetris *tetris)
 				tetris->map[i][j] = EMPTY;
 		}
 	}
+	tetris->current = NULL;
+	tetris->next = NULL;
+	tetris->held = NULL;
+	tetris->current = allocate_tetromino(tetris);
+	tetris->next = allocate_tetromino(tetris);
 }
 
 void	create_window(t_tetris *tetris)
@@ -41,14 +69,4 @@ void	create_window(t_tetris *tetris)
 	// tetris->width = 500;
 	tetris->size = tetris->height / RATIO;
 	tetris->tet_size = tetris->size - 1;
-}
-
-void	draw_controls(t_tetris *tetris)
-{
-	Image image = LoadImage("image/controlwhite.png");
-	if (!image.data)
-		exit (1);
-	ImageResize(&image, 20 * tetris->size, 2 * tetris->size);
-	tetris->controls = LoadTextureFromImage(image);
-	UnloadImage(image);
 }

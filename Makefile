@@ -9,7 +9,9 @@ RM = rm -rf
 
 SRCS = \
 			srcs/init.c \
-			srcs/tetris.c
+			srcs/tetris.c \
+			srcs/draw_ui.c \
+			srcs/generate_tetromino.c
 
 OBJS = $(SRCS:.c=.o)
 

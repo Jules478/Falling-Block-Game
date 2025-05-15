@@ -8,6 +8,7 @@
 # include <dirent.h>
 # include <stdlib.h>
 # include <errno.h>
+# include <time.h>
 # include "raylib.h"
 
 # define I_COLOUR SKYBLUE
@@ -45,8 +46,8 @@ typedef struct s_coord
 typedef struct s_tetromino
 {
 	int	type;
-	t_coord coord[4];
-	char *colour;
+	t_coord *coord;
+	Color colour;
 }	t_tetromino;
 
 typedef struct s_tetris
@@ -54,6 +55,7 @@ typedef struct s_tetris
 	int map[22][12];
 	t_tetromino *current;
 	t_tetromino *next;
+	t_tetromino *held;
 	Texture2D controls;
 	int	speed;
 	int	height;
@@ -64,10 +66,12 @@ typedef struct s_tetris
 
 /////////////// FUNCTIONS ///////////////
 
-void	close_game(int ex);
+void	close_game(t_tetris *tetris, int ex, bool start);
 void	init_game(t_tetris *tetris);
 void	create_window(t_tetris *tetris);
 void	draw_controls(t_tetris *tetris);
+void	draw_ui(t_tetris *tetris);
+void	create_tetromino(t_tetromino *tetromino);
 
 
 #endif

@@ -1,7 +1,18 @@
 #include "../include/tetris.h"
 
-void	close_game(int ex)
+void	close_game(t_tetris *tetris, int ex, bool start)
 {
+	if (tetris->current)
+		free(tetris->current);
+	if (tetris->next)
+		free(tetris->next);
+	if (tetris->held)
+		free(tetris->held);
+	if (start == true)
+	{
+		UnloadTexture(tetris->controls);
+		CloseWindow();
+	}
 	exit(ex);
 }
 
@@ -9,41 +20,21 @@ void	close_game(int ex)
 int	main()
 {
 	t_tetris tetris;
-	int	i;
-	int	j;
 
-	srand(getpid());
+	srand(time(NULL));
 	init_game(&tetris);
 	SetTargetFPS(60);
 	create_window(&tetris);
 	InitWindow(tetris.width, tetris.height, "Tetris");
 	draw_controls(&tetris);
+	create_tetromino(tetris.current);
+	create_tetromino(tetris.next);
 	while(!WindowShouldClose())
 	{
 		BeginDrawing();
-			ClearBackground(BLACK);
-			i = -1;
-			while (++i < 22)
-			{
-				j = -1;
-				while (++j < 12)
-				{
-					if (tetris.map[i][j] == WALL)
-						DrawRectangle(j * tetris.size, i * tetris.size, tetris.size, tetris.size, GRAY);
-				}
-			}
-			DrawRectangle(12 * tetris.size, 0 * tetris.size, 10 * tetris.size, 22 * tetris.size, GRAY);
-			DrawRectangle(12 * tetris.size, 1 * tetris.size, 7 * tetris.size, 9 * tetris.size, BLACK);
-			DrawRectangle(12 * tetris.size, 11 * tetris.size, 7 * tetris.size, 10 * tetris.size, BLACK);
-			DrawRectangle(12 * tetris.size, 5 * tetris.size, 7 * tetris.size, 1 * tetris.size, GRAY);
-			DrawTexture(tetris.controls, 0 * tetris.size, 22 * tetris.size, WHITE);
-			DrawText("Next", (12 * tetris.size) + 5, (1 * tetris.size) + 5, tetris.size - 1, WHITE);
-			DrawText("Held", (12 * tetris.size) + 5, (6 * tetris.size) + 5, tetris.size - 1, WHITE);
-			DrawText("High Scores:", (12 * tetris.size) + 5, (11 * tetris.size) + 5, tetris.size - 1, WHITE);
+		draw_ui(&tetris);
 		EndDrawing();
 	}
-	UnloadTexture(tetris.controls);
-	CloseWindow();
-	close_game(0);
+	close_game(&tetris, 0, true);
 	return (0);
 }
