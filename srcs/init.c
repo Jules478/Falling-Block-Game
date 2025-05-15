@@ -16,16 +16,6 @@ void	init_game(t_tetris *tetris)
 				tetris->map[i][j] = EMPTY;
 		}
 	}
-	i = -1;
-	while (++i < 22)
-	{
-		j = -1;
-		while (++j < 12)
-		{
-			printf("%d", tetris->map[i][j]);
-		}
-		printf("\n");
-	}
 }
 
 void	create_window(t_tetris *tetris)
@@ -47,6 +37,18 @@ void	create_window(t_tetris *tetris)
 	// printf("height: %d\n", tetris->height);
 	tetris->height = 1200;
 	tetris->width = 1000;
+	// tetris->height = 600;
+	// tetris->width = 500;
 	tetris->size = tetris->height / RATIO;
 	tetris->tet_size = tetris->size - 1;
+}
+
+void	draw_controls(t_tetris *tetris)
+{
+	Image image = LoadImage("image/controlwhite.png");
+	if (!image.data)
+		exit (1);
+	ImageResize(&image, 20 * tetris->size, 2 * tetris->size);
+	tetris->controls = LoadTextureFromImage(image);
+	UnloadImage(image);
 }

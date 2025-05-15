@@ -54,6 +54,7 @@ typedef struct s_tetris
 	int map[22][12];
 	t_tetromino *current;
 	t_tetromino *next;
+	Texture2D controls;
 	int	speed;
 	int	height;
 	int	width;
@@ -66,6 +67,7 @@ typedef struct s_tetris
 void	close_game(int ex);
 void	init_game(t_tetris *tetris);
 void	create_window(t_tetris *tetris);
+void	draw_controls(t_tetris *tetris);
 
 
 #endif
