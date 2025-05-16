@@ -11,7 +11,10 @@ SRCS = \
 			srcs/init.c \
 			srcs/tetris.c \
 			srcs/draw_ui.c \
-			srcs/generate_tetromino.c
+			srcs/generate_tetromino.c \
+			srcs/draw_game_state.c \
+			srcs/run_game.c \
+			srcs/utils.c
 
 OBJS = $(SRCS:.c=.o)
 

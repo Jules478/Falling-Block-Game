@@ -24,7 +24,7 @@
 
 # define RATIO 24
 
-typedef enum types
+typedef enum s_types
 {
 	EMPTY,
 	I_PIECE,
@@ -37,6 +37,14 @@ typedef enum types
 	WALL
 } t_types;
 
+typedef enum s_orientation
+{
+	LEFT,
+	UP,
+	RIGHT,
+	DOWN
+} t_orientation;
+
 typedef struct s_coord
 {
 	int	x;
@@ -48,6 +56,9 @@ typedef struct s_tetromino
 	int	type;
 	t_coord *coord;
 	Color colour;
+	int	orientation;
+	int	collision;
+	bool detected;
 }	t_tetromino;
 
 typedef struct s_tetris
@@ -72,6 +83,13 @@ void	create_window(t_tetris *tetris);
 void	draw_controls(t_tetris *tetris);
 void	draw_ui(t_tetris *tetris);
 void	create_tetromino(t_tetromino *tetromino);
+void	draw_current_tetromino(t_tetris *tetris);
+void	draw_game_state(t_tetris *tetris);
+void	load_current_tetromino(t_tetris *tetris);
+void	advance_one_stage(t_tetris *tetris);
+t_tetromino *allocate_tetromino(t_tetris *tetris);
+void	detect_input(t_tetris *tetris);
+bool is_valid_position(t_tetris *tetris, int x, int y);
 
 
 #endif

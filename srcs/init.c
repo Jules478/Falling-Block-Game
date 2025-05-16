@@ -9,7 +9,7 @@ t_tetromino *allocate_tetromino(t_tetris *tetris)
 	coord = malloc(sizeof(t_coord) * 4);
 	if (!coord)
 		close_game(tetris, 3, false);
-	tetromino = malloc(sizeof(t_tetromino *));
+	tetromino = malloc(sizeof(t_tetromino));
 	if (!tetromino)
 		close_game(tetris, 2, false);
 	while (++i < 5)
@@ -20,6 +20,8 @@ t_tetromino *allocate_tetromino(t_tetris *tetris)
 	tetromino->coord = coord;
 	tetromino->type = 0;
 	tetromino->colour = WALL_COLOUR;
+	tetromino->orientation = LEFT;
+	tetromino->detected = false;
 	return (tetromino);
 }
 
@@ -44,6 +46,7 @@ void	init_game(t_tetris *tetris)
 	tetris->held = NULL;
 	tetris->current = allocate_tetromino(tetris);
 	tetris->next = allocate_tetromino(tetris);
+	tetris->speed = 60;
 }
 
 void	create_window(t_tetris *tetris)
