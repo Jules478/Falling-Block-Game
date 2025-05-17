@@ -49,6 +49,7 @@ int	main()
 		BeginDrawing();
 		draw_ui(&tetris);
 		draw_game_state(&tetris);
+		draw_held_tetromino(&tetris);
 		detect_input(&tetris);
 		if (frames % tetris.speed == 0)
 			advance_one_stage(&tetris);

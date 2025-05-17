@@ -47,6 +47,8 @@ void	init_game(t_tetris *tetris)
 	tetris->current = allocate_tetromino(tetris);
 	tetris->next = allocate_tetromino(tetris);
 	tetris->speed = 60;
+	tetris->hold = false;
+	tetris->locked = false;
 }
 
 void	create_window(t_tetris *tetris)
@@ -68,6 +70,8 @@ void	create_window(t_tetris *tetris)
 	// printf("height: %d\n", tetris->height);
 	tetris->height = 1200;
 	tetris->width = 1000;
+	tetris->height = 960;
+	tetris->width = 800;
 	// tetris->height = 600;
 	// tetris->width = 500;
 	tetris->size = tetris->height / RATIO;

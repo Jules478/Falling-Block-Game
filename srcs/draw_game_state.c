@@ -1,5 +1,61 @@
 #include "../include/tetris.h"
 
+void	draw_held_tetromino(t_tetris *tetris)
+{
+	if (tetris->held)
+	{
+		if (tetris->held->type == O_PIECE)
+		{
+			DrawRectangle(14 * tetris->size, 7 * tetris->size, tetris->tet_size, tetris->tet_size, O_COLOUR);
+			DrawRectangle(15 * tetris->size, 7 * tetris->size, tetris->tet_size, tetris->tet_size, O_COLOUR);
+			DrawRectangle(15 * tetris->size, 8 * tetris->size, tetris->tet_size, tetris->tet_size, O_COLOUR);
+			DrawRectangle(14 * tetris->size, 8 * tetris->size, tetris->tet_size, tetris->tet_size, O_COLOUR);
+		}
+		else if (tetris->held->type == I_PIECE)
+		{
+			DrawRectangle(13 * tetris->size, 8 * tetris->size, tetris->tet_size, tetris->tet_size, I_COLOUR);
+			DrawRectangle(16 * tetris->size, 8 * tetris->size, tetris->tet_size, tetris->tet_size, I_COLOUR);
+			DrawRectangle(15 * tetris->size, 8 * tetris->size, tetris->tet_size, tetris->tet_size, I_COLOUR);
+			DrawRectangle(14 * tetris->size, 8 * tetris->size, tetris->tet_size, tetris->tet_size, I_COLOUR);
+		}
+		else if (tetris->held->type == S_PIECE)
+		{
+			DrawRectangle(15 * tetris->size, 8 * tetris->size, tetris->tet_size, tetris->tet_size, S_COLOUR);
+			DrawRectangle(14 * tetris->size, 8 * tetris->size, tetris->tet_size, tetris->tet_size, S_COLOUR);
+			DrawRectangle(15 * tetris->size, 7 * tetris->size, tetris->tet_size, tetris->tet_size, S_COLOUR);
+			DrawRectangle(16 * tetris->size, 7 * tetris->size, tetris->tet_size, tetris->tet_size, S_COLOUR);
+		}	
+		else if (tetris->held->type == Z_PIECE)
+		{
+			DrawRectangle(15 * tetris->size, 8 * tetris->size, tetris->tet_size, tetris->tet_size, Z_COLOUR);
+			DrawRectangle(16 * tetris->size, 8 * tetris->size, tetris->tet_size, tetris->tet_size, Z_COLOUR);
+			DrawRectangle(15 * tetris->size, 7 * tetris->size, tetris->tet_size, tetris->tet_size, Z_COLOUR);
+			DrawRectangle(14 * tetris->size, 7 * tetris->size, tetris->tet_size, tetris->tet_size, Z_COLOUR);
+		}
+		else if (tetris->held->type == L_PIECE)
+		{
+			DrawRectangle(15 * tetris->size, 8 * tetris->size, tetris->tet_size, tetris->tet_size, L_COLOUR);
+			DrawRectangle(14 * tetris->size, 8 * tetris->size, tetris->tet_size, tetris->tet_size, L_COLOUR);
+			DrawRectangle(16 * tetris->size, 8 * tetris->size, tetris->tet_size, tetris->tet_size, L_COLOUR);
+			DrawRectangle(16 * tetris->size, 7 * tetris->size, tetris->tet_size, tetris->tet_size, L_COLOUR);
+		}
+		else if (tetris->held->type == J_PIECE)
+		{
+			DrawRectangle(15 * tetris->size, 8 * tetris->size, tetris->tet_size, tetris->tet_size, J_COLOUR);
+			DrawRectangle(14 * tetris->size, 8 * tetris->size, tetris->tet_size, tetris->tet_size, J_COLOUR);
+			DrawRectangle(16 * tetris->size, 8 * tetris->size, tetris->tet_size, tetris->tet_size, J_COLOUR);
+			DrawRectangle(14 * tetris->size, 7 * tetris->size, tetris->tet_size, tetris->tet_size, J_COLOUR);
+		}
+		else if (tetris->held->type == T_PIECE)
+		{
+			DrawRectangle(14 * tetris->size, 8 * tetris->size, tetris->tet_size, tetris->tet_size, T_COLOUR);
+			DrawRectangle(15 * tetris->size, 8 * tetris->size, tetris->tet_size, tetris->tet_size, T_COLOUR);
+			DrawRectangle(16 * tetris->size, 8 * tetris->size, tetris->tet_size, tetris->tet_size, T_COLOUR);
+			DrawRectangle(15 * tetris->size, 7 * tetris->size, tetris->tet_size, tetris->tet_size, T_COLOUR);
+		}
+	}
+}
+
 void	load_current_tetromino(t_tetris *tetris)
 {
 	int	i = -1;

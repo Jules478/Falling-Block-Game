@@ -32,7 +32,6 @@ void	draw_current_tetromino(t_tetris *tetris)
 		tetris->current->coord[2].y = 2;
 		tetris->current->coord[3].x = 5;
 		tetris->current->coord[3].y = 1;
-		tetris->current->collision = 3;
 	}
 	else if (tetris->current->type == O_PIECE)
 	{
@@ -44,7 +43,6 @@ void	draw_current_tetromino(t_tetris *tetris)
 		tetris->current->coord[2].y = 1;
 		tetris->current->coord[3].x = 5;
 		tetris->current->coord[3].y = 1;
-		tetris->current->collision = 2;
 	}
 	else if (tetris->current->type == J_PIECE)
 	{
@@ -56,7 +54,6 @@ void	draw_current_tetromino(t_tetris *tetris)
 		tetris->current->coord[2].y = 2;
 		tetris->current->coord[3].x = 4;
 		tetris->current->coord[3].y = 1;
-		tetris->current->collision = 3;
 	}
 	else if (tetris->current->type == L_PIECE)
 	{
@@ -68,7 +65,6 @@ void	draw_current_tetromino(t_tetris *tetris)
 		tetris->current->coord[2].y = 2;
 		tetris->current->coord[3].x = 6;
 		tetris->current->coord[3].y = 1;
-		tetris->current->collision = 3;
 	}
 	else if (tetris->current->type == S_PIECE)
 	{
@@ -80,7 +76,6 @@ void	draw_current_tetromino(t_tetris *tetris)
 		tetris->current->coord[2].y = 1;
 		tetris->current->coord[3].x = 5;
 		tetris->current->coord[3].y = 1;
-		tetris->current->collision = 3;
 	}
 	else if (tetris->current->type == Z_PIECE)
 	{
@@ -92,7 +87,6 @@ void	draw_current_tetromino(t_tetris *tetris)
 		tetris->current->coord[2].y = 1;
 		tetris->current->coord[3].x = 5;
 		tetris->current->coord[3].y = 1;
-		tetris->current->collision = 3;
 	}
 	else if (tetris->current->type == I_PIECE)
 	{
@@ -104,6 +98,5 @@ void	draw_current_tetromino(t_tetris *tetris)
 		tetris->current->coord[2].y = 1;
 		tetris->current->coord[3].x = 7;
 		tetris->current->coord[3].y = 1;
-		tetris->current->collision = 4;
 	}
 }

@@ -57,7 +57,6 @@ typedef struct s_tetromino
 	t_coord *coord;
 	Color colour;
 	int	orientation;
-	int	collision;
 	bool detected;
 }	t_tetromino;
 
@@ -73,6 +72,8 @@ typedef struct s_tetris
 	int	width;
 	int	size;
 	int	tet_size;
+	bool	hold;
+	bool	locked;
 }	t_tetris;
 
 /////////////// FUNCTIONS ///////////////
@@ -90,6 +91,12 @@ void	advance_one_stage(t_tetris *tetris);
 t_tetromino *allocate_tetromino(t_tetris *tetris);
 void	detect_input(t_tetris *tetris);
 bool is_valid_position(t_tetris *tetris, int x, int y);
-
+void	draw_held_tetromino(t_tetris *tetris);
+void	check_for_clears(t_tetris *tetris);
+void	hard_drop(t_tetris *tetris);
+void	check_orientation(t_tetris *tetris);
+bool	wall_collision(t_tetris *tetris, int x, int y);
+bool	floor_collision(t_tetris *tetris, int x, int y);
+int	manage_collision(t_tetris *tetris, t_coord *coord);
 
 #endif

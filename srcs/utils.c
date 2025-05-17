@@ -1,6 +1,5 @@
 #include "../include/tetris.h"
 
-
 bool	is_tetromino_coord(t_tetromino *tetromino, t_coord coord)
 {
 	int	i = -1;
@@ -8,8 +7,66 @@ bool	is_tetromino_coord(t_tetromino *tetromino, t_coord coord)
 	while (++i < 4)
 	{
 		if (tetromino->coord[i].x == coord.x && tetromino->coord[i].y == coord.y)
-		return (true);
+			return (true);
 	}
+	return (false);
+}
+
+int	manage_collision(t_tetris *tetris, t_coord *coord)
+{
+	int	i = -1;
+	while (++i < 4)
+	{
+		if (floor_collision(tetris, coord[i].x, coord[i].y) && !is_tetromino_coord(tetris->current, coord[i]))
+		{
+			i = -1;
+			while (++i < 4)
+				coord[i].y--;
+			break;
+		}
+	}
+	i = -1;
+	while (++i < 4)
+	{
+		if (wall_collision(tetris, coord[i].x, coord[i].y) && !is_tetromino_coord(tetris->current, coord[i]))
+		{
+			i = -1;
+			while (++i < 4)
+				coord[i].x--;
+			i = -1;
+			while (++i < 4)
+			{
+				if (wall_collision(tetris, coord[i].x, coord[i].y) && !is_tetromino_coord(tetris->current, coord[i]))
+				{
+					i = -1;
+					while (++i < 4)
+						coord[i].x += 2;
+					i = -1;
+					while (++i < 4)
+					{
+						if (wall_collision(tetris, coord[i].x, coord[i].y) && !is_tetromino_coord(tetris->current, coord[i]))
+							return (1);
+					}
+					break;
+				}
+			}
+			break;
+		}
+	}
+	return (0);
+}
+
+bool	floor_collision(t_tetris *tetris, int x, int y)
+{
+	if (tetris->map[y][x] != EMPTY)
+		return (true);
+	return (false);
+}
+
+bool	wall_collision(t_tetris *tetris, int x, int y)
+{
+	if (tetris->map[y][x] != EMPTY)
+		return (true);
 	return (false);
 }
 
@@ -20,4 +77,36 @@ bool is_valid_position(t_tetris *tetris, int x, int y)
 	if (tetris->map[y][x] != EMPTY && !is_tetromino_coord(tetris->current, (t_coord){x, y}))
 		return (false);
 	return (true);
+}
+
+void	hard_drop(t_tetris *tetris)
+{
+	int	i;
+	bool stop = false;
+	
+	while (1)
+	{
+		i = -1;
+		if (stop == true)
+		{
+			load_current_tetromino(tetris);
+			tetris->current->detected = true;
+			break;
+		}
+		while (++i < 4)
+		{
+			if (!is_valid_position(tetris, tetris->current->coord[i].x, tetris->current->coord[i].y + 1))
+			{
+				stop = true;
+				break;
+			}
+		}
+		i = -1;
+		while (++i < 4 && stop == false)
+		{
+			tetris->map[tetris->current->coord[i].y][tetris->current->coord[i].x] = EMPTY;
+			tetris->current->coord[i].y++;
+		}
+		
+	}
 }

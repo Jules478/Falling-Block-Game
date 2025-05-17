@@ -14,7 +14,8 @@ SRCS = \
 			srcs/generate_tetromino.c \
 			srcs/draw_game_state.c \
 			srcs/run_game.c \
-			srcs/utils.c
+			srcs/utils.c \
+			srcs/rotation.c
 
 OBJS = $(SRCS:.c=.o)
 
