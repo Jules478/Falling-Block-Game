@@ -15,7 +15,8 @@ SRCS = \
 			srcs/draw_game_state.c \
 			srcs/run_game.c \
 			srcs/utils.c \
-			srcs/rotation.c
+			srcs/rotation.c \
+			srcs/speed.c
 
 OBJS = $(SRCS:.c=.o)
 

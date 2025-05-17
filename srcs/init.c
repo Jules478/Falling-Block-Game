@@ -44,11 +44,18 @@ void	init_game(t_tetris *tetris)
 	tetris->current = NULL;
 	tetris->next = NULL;
 	tetris->held = NULL;
-	tetris->current = allocate_tetromino(tetris);
-	tetris->next = allocate_tetromino(tetris);
-	tetris->speed = 60;
 	tetris->hold = false;
 	tetris->locked = false;
+	tetris->prev = -1;
+	tetris->score_int = 0;
+	tetris->score_str = strdup("0");
+	tetris->level_int = 1;
+	tetris->level_str = strdup("1");
+	tetris->level_prog = 0;
+	tetris->btb = 0;
+	change_speed(tetris);
+	tetris->current = allocate_tetromino(tetris);
+	tetris->next = allocate_tetromino(tetris);
 }
 
 void	create_window(t_tetris *tetris)
@@ -76,4 +83,5 @@ void	create_window(t_tetris *tetris)
 	// tetris->width = 500;
 	tetris->size = tetris->height / RATIO;
 	tetris->tet_size = tetris->size - 1;
+
 }

@@ -2,6 +2,8 @@
 
 void	close_game(t_tetris *tetris, int ex, bool start)
 {
+	free(tetris->level_str);
+	free(tetris->score_str);
 	if (tetris->current)
 	{
 		if (tetris->current->coord)
@@ -32,7 +34,8 @@ void	close_game(t_tetris *tetris, int ex, bool start)
 int	main()
 {
 	t_tetris tetris;
-	int	frames = 1;
+	float time_elapsed = 0.0f;
+	float delta_time = 1.0f / 60.0f;
 
 	srand(time(NULL));
 	init_game(&tetris);
@@ -40,8 +43,8 @@ int	main()
 	create_window(&tetris);
 	InitWindow(tetris.width, tetris.height, "Tetris");
 	draw_controls(&tetris);
-	create_tetromino(tetris.current);
-	create_tetromino(tetris.next);
+	create_tetromino(&tetris, tetris.current);
+	create_tetromino(&tetris, tetris.next);
 	draw_current_tetromino(&tetris);
 	load_current_tetromino(&tetris);
 	while(!WindowShouldClose())
@@ -51,9 +54,12 @@ int	main()
 		draw_game_state(&tetris);
 		draw_held_tetromino(&tetris);
 		detect_input(&tetris);
-		if (frames % tetris.speed == 0)
+		time_elapsed += delta_time * 60.0f;
+    	if (time_elapsed >= tetris.speed)
+		{
 			advance_one_stage(&tetris);
-		frames++;
+			time_elapsed -= tetris.speed;
+		}
 		EndDrawing();
 	}
 	close_game(&tetris, 0, true);

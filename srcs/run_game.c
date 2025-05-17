@@ -6,7 +6,7 @@ void	check_game_over(t_tetris *tetris)
 
 	while (++i < 4)
 	{
-		if (!is_valid_position(tetris, tetris->current->coord[i].x, tetris->current->coord[i].y))
+		if (!is_valid_position_go(tetris, tetris->current->coord[i].x, tetris->current->coord[i].y))
 			close_game(tetris, 0, true);
 	}
 }
@@ -25,13 +25,14 @@ void	advance_one_stage(t_tetris *tetris)
 			check_for_clears(tetris);
 			tetris->current = tetris->next;
 			tetris->next = allocate_tetromino(tetris);
-			create_tetromino(tetris->next);
+			create_tetromino(tetris, tetris->next);
 			draw_current_tetromino(tetris);
 			check_game_over(tetris);
 			load_current_tetromino(tetris);
 			tetris->hold = false;
 			return ;
 		}
+		tetris->current->detected = false;
 		tetris->locked = true;
 		return ;
 	}
@@ -84,7 +85,7 @@ void	swap_held(t_tetris *tetris)
 		free(tetris->current);
 		tetris->current = tetris->next;
 		tetris->next = allocate_tetromino(tetris);
-		create_tetromino(tetris->next);
+		create_tetromino(tetris, tetris->next);
 		draw_current_tetromino(tetris);
 		check_game_over(tetris);
 		load_current_tetromino(tetris);
@@ -243,4 +244,39 @@ void	check_for_clears(t_tetris *tetris)
 			}
 		}
 	}
+	if (count == 1)
+	{
+		tetris->score_int += (100 * tetris->level_int);
+		tetris->score_str = tet_itoa(tetris, tetris->score_int);
+		tetris->btb = 0;
+	}
+	else if (count == 2)
+	{
+		tetris->score_int += (300 * tetris->level_int);
+		tetris->score_str = tet_itoa(tetris, tetris->score_int);
+		tetris->btb = 0;
+	}
+	else if (count == 3)
+	{
+		tetris->score_int += (500 * tetris->level_int);
+		tetris->score_str = tet_itoa(tetris, tetris->score_int);
+		tetris->btb = 0;
+	}
+	else if (count == 4)
+	{
+		if (tetris->btb == 1)
+			tetris->score_int += (1200 * tetris->level_int);
+		else
+			tetris->score_int += (800 * tetris->level_int);
+		tetris->score_str = tet_itoa(tetris, tetris->score_int);
+		tetris->btb = 1;
+	}
+	tetris->level_prog += count;
+	if (tetris->level_prog > 9)
+	{
+		tetris->level_int++;
+		tetris->level_str = tet_itoa(tetris, tetris->level_int);
+		tetris->level_prog -= 10;
+	}
+	change_speed(tetris);
 }
