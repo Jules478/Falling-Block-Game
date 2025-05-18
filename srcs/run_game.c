@@ -6,7 +6,7 @@ void	check_game_over(t_tetris *tetris)
 
 	while (++i < 4)
 	{
-		if (!is_valid_position_go(tetris, tetris->current->coord[i].x, tetris->current->coord[i].y))
+		if (check_collision(tetris, tetris->current->coord[i].x, tetris->current->coord[i].y))
 			close_game(tetris, 0, true);
 	}
 }
@@ -16,9 +16,10 @@ void	advance_one_stage(t_tetris *tetris)
 	int	i = -1;
 	bool	collision = false;
 
+	tetris->time_since_last += tetris->delta_time; * 60.0f;
 	if (tetris->current->detected == true)
 	{
-		if (tetris->locked == true)
+		if (tetris->mrl_delay < tetris->time_since_last || tetris->current->hard_drop)
 		{
 			free(tetris->current->coord);
 			free(tetris->current);
@@ -33,7 +34,6 @@ void	advance_one_stage(t_tetris *tetris)
 			return ;
 		}
 		tetris->current->detected = false;
-		tetris->locked = true;
 		return ;
 	}
 		while (++i < 4)
@@ -53,6 +53,7 @@ void	advance_one_stage(t_tetris *tetris)
 			tetris->current->coord[i].y++;				
 		}
 	load_current_tetromino(tetris);
+	tetris->current->is_rotating = false;
 }
 
 void	swap_held(t_tetris *tetris)
@@ -190,6 +191,7 @@ void	detect_input(t_tetris *tetris)
 	else if (IsKeyPressed(KEY_SPACE) && tetris->current->detected == false)
 	{
 		hard_drop(tetris);
+		tetris->current->hard_drop = true;
 		tetris->locked = true;
 	}
 	else if (IsKeyPressed(KEY_C) && tetris->current->detected == false)
@@ -199,7 +201,7 @@ void	detect_input(t_tetris *tetris)
 	}
 	else if (IsKeyPressed(KEY_UP) && tetris->current->detected == false)
 	{
-		check_orientation(tetris);
+		rotate_tetromino(tetris);
 	}
 }
 
@@ -247,18 +249,21 @@ void	check_for_clears(t_tetris *tetris)
 	if (count == 1)
 	{
 		tetris->score_int += (100 * tetris->level_int);
+		free(tetris->score_str);
 		tetris->score_str = tet_itoa(tetris, tetris->score_int);
 		tetris->btb = 0;
 	}
 	else if (count == 2)
 	{
 		tetris->score_int += (300 * tetris->level_int);
+		free(tetris->score_str);
 		tetris->score_str = tet_itoa(tetris, tetris->score_int);
 		tetris->btb = 0;
 	}
 	else if (count == 3)
 	{
 		tetris->score_int += (500 * tetris->level_int);
+		free(tetris->score_str);
 		tetris->score_str = tet_itoa(tetris, tetris->score_int);
 		tetris->btb = 0;
 	}
@@ -268,6 +273,7 @@ void	check_for_clears(t_tetris *tetris)
 			tetris->score_int += (1200 * tetris->level_int);
 		else
 			tetris->score_int += (800 * tetris->level_int);
+		free(tetris->score_str);
 		tetris->score_str = tet_itoa(tetris, tetris->score_int);
 		tetris->btb = 1;
 	}
@@ -275,6 +281,7 @@ void	check_for_clears(t_tetris *tetris)
 	if (tetris->level_prog > 9)
 	{
 		tetris->level_int++;
+		free(tetris->level_str);
 		tetris->level_str = tet_itoa(tetris, tetris->level_int);
 		tetris->level_prog -= 10;
 	}

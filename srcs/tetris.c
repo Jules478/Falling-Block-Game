@@ -35,7 +35,6 @@ int	main()
 {
 	t_tetris tetris;
 	float time_elapsed = 0.0f;
-	float delta_time = 1.0f / 60.0f;
 
 	srand(time(NULL));
 	init_game(&tetris);
@@ -54,7 +53,7 @@ int	main()
 		draw_game_state(&tetris);
 		draw_held_tetromino(&tetris);
 		detect_input(&tetris);
-		time_elapsed += delta_time * 60.0f;
+		time_elapsed += tetris.delta_time * 60.0f;
     	if (time_elapsed >= tetris.speed)
 		{
 			advance_one_stage(&tetris);

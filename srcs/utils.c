@@ -12,84 +12,60 @@ bool	is_tetromino_coord(t_tetromino *tetromino, t_coord coord)
 	return (false);
 }
 
-int	manage_collision(t_tetris *tetris, t_coord *coord)
+bool	offset_collision(t_tetris *tetris, t_coord *coord)
 {
 	int	i = -1;
 	while (++i < 4)
 	{
-		if (floor_collision(tetris, coord[i].x, coord[i].y) && !is_tetromino_coord(tetris->current, coord[i]))
+		if (check_collision(tetris, coord[i].x, coord[i].y) && !is_tetromino_coord(tetris->current, coord[i]))
+			return (false);
+	}
+	return (true);
+}
+
+int	manage_collision(t_tetris *tetris, t_coord *coord)
+{
+	int i;
+
+	if (!offset_collision(tetris, coord))
+	{
+		i = -1;
+		while (++i < 4)
+			coord[i].y++;
+		if (!offset_collision(tetris, coord))
 		{
 			i = -1;
 			while (++i < 4)
-				coord[i].y++;
-			if (floor_collision(tetris, coord[i].x, coord[i].y) && !is_tetromino_coord(tetris->current, coord[i]))
+				coord[i].y -= 2;
+			if (!offset_collision(tetris, coord))
 			{
 				i = -1;
 				while (++i < 4)
-					coord[i].y -=2;
-				if (floor_collision(tetris, coord[i].x, coord[i].y) && !is_tetromino_coord(tetris->current, coord[i]))
-					return (1);
-				break;
-			}
-			break;
-		}
-	}
-	i = -1;
-	while (++i < 4)
-	{
-		if (wall_collision(tetris, coord[i].x, coord[i].y) && !is_tetromino_coord(tetris->current, coord[i]))
-		{
-			i = -1;
-			while (++i < 4)
-				coord[i].x--;
-			i = -1;
-			while (++i < 4)
-			{
-				if (wall_collision(tetris, coord[i].x, coord[i].y) && !is_tetromino_coord(tetris->current, coord[i]))
+				{
+					coord[i].y++;
+					coord[i].x++;
+				}
+				if (!offset_collision(tetris, coord))
 				{
 					i = -1;
 					while (++i < 4)
-						coord[i].x += 2;
-					i = -1;
-					while (++i < 4)
-					{
-						if (wall_collision(tetris, coord[i].x, coord[i].y) && !is_tetromino_coord(tetris->current, coord[i]))
-							return (1);
-					}
-					break;
+						coord[i].x -= 2;
+					if (!offset_collision(tetris, coord))
+						return (1);
 				}
 			}
-			break;
 		}
 	}
 	return (0);
 }
 
-bool	floor_collision(t_tetris *tetris, int x, int y)
+bool	check_collision(t_tetris *tetris, int x, int y)
 {
 	if (x < 0 || x >= 12 || y < 0 || y >= 22)
 		return (true);
 	if (tetris->map[y][x] != EMPTY)
 		return (true);
 	return (false);
-}
-
-bool	wall_collision(t_tetris *tetris, int x, int y)
-{
-	if (x < 0 || x >= 12 || y < 0 || y >= 22)
-		return (true);
-	if (tetris->map[y][x] != EMPTY)
-		return (true);
-	return (false);
-}
-
-bool is_valid_position_go(t_tetris *tetris, int x, int y)
-{
-	if (x < 0 || x >= 12 || y < 0 || y >= 22)
-		return (false);
-	if (tetris->map[y][x] != EMPTY)
-		return (false);
-	return (true);
 }
 
 bool is_valid_position(t_tetris *tetris, int x, int y)

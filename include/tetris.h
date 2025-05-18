@@ -54,60 +54,63 @@ typedef struct s_coord
 
 typedef struct s_tetromino
 {
-	int	type;
-	t_coord *coord;
-	Color colour;
-	int	orientation;
-	bool detected;
+	int		type;
+	t_coord	*coord;
+	Color	colour;
+	int		orientation;
+	bool	detected;
+	bool	is_rotating;
+	bool	hard_drop;
 }	t_tetromino;
 
 typedef struct s_tetris
 {
-	int map[22][12];
-	t_tetromino *current;
-	t_tetromino *next;
-	t_tetromino *held;
-	Texture2D controls;
-	float	speed;
-	int	height;
-	int	width;
-	int	size;
-	int	tet_size;
-	bool	hold;
-	bool	locked;
-	int prev;
-	int	score_int;
-	char *score_str;
-	int level_int;
-	char *level_str;
-	int	level_prog;
-	int	btb;
+	int 		map[22][12];
+	t_tetromino	*current;
+	t_tetromino	*next;
+	t_tetromino	*held;
+	Texture2D	controls;
+	float		speed;
+	int			height;
+	int			width;
+	int			size;
+	int			tet_size;
+	bool		hold;
+	bool		locked;
+	int			prev;
+	int			score_int;
+	char		*score_str;
+	int			level_int;
+	char		*level_str;
+	int			level_prog;
+	int			btb;
+	float	mrl_delay;
+	float	time_since_last;
+	float delta_time;
 }	t_tetris;
 
 /////////////// FUNCTIONS ///////////////
 
-void	close_game(t_tetris *tetris, int ex, bool start);
-void	init_game(t_tetris *tetris);
-void	create_window(t_tetris *tetris);
-void	draw_controls(t_tetris *tetris);
-void	draw_ui(t_tetris *tetris);
-void	create_tetromino(t_tetris *tetris, t_tetromino *tetromino);
-void	draw_current_tetromino(t_tetris *tetris);
-void	draw_game_state(t_tetris *tetris);
-void	load_current_tetromino(t_tetris *tetris);
-void	advance_one_stage(t_tetris *tetris);
-t_tetromino *allocate_tetromino(t_tetris *tetris);
-void	detect_input(t_tetris *tetris);
-bool is_valid_position(t_tetris *tetris, int x, int y);
-void	draw_held_tetromino(t_tetris *tetris);
-void	check_for_clears(t_tetris *tetris);
-void	hard_drop(t_tetris *tetris);
-void	check_orientation(t_tetris *tetris);
-bool	wall_collision(t_tetris *tetris, int x, int y);
-bool	floor_collision(t_tetris *tetris, int x, int y);
-int	manage_collision(t_tetris *tetris, t_coord *coord);
-bool is_valid_position_go(t_tetris *tetris, int x, int y);
-char *tet_itoa(t_tetris *tetris, int x);
-void	change_speed(t_tetris *tetris);
+void		close_game(t_tetris *tetris, int ex, bool start);
+void		init_game(t_tetris *tetris);
+void		create_window(t_tetris *tetris);
+void		draw_controls(t_tetris *tetris);
+void		draw_ui(t_tetris *tetris);
+void		create_tetromino(t_tetris *tetris, t_tetromino *tetromino);
+void		draw_current_tetromino(t_tetris *tetris);
+void		draw_game_state(t_tetris *tetris);
+void		load_current_tetromino(t_tetris *tetris);
+void		advance_one_stage(t_tetris *tetris);
+t_tetromino	*allocate_tetromino(t_tetris *tetris);
+void		detect_input(t_tetris *tetris);
+bool		 is_valid_position(t_tetris *tetris, int x, int y);
+void		draw_held_tetromino(t_tetris *tetris);
+void		check_for_clears(t_tetris *tetris);
+void		hard_drop(t_tetris *tetris);
+void		rotate_tetromino(t_tetris *tetris);
+bool		check_collision(t_tetris *tetris, int x, int y);
+int			manage_collision(t_tetris *tetris, t_coord *coord);
+char 		*tet_itoa(t_tetris *tetris, int x);
+void		change_speed(t_tetris *tetris);
 
 #endif

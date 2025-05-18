@@ -22,6 +22,8 @@ t_tetromino *allocate_tetromino(t_tetris *tetris)
 	tetromino->colour = WALL_COLOUR;
 	tetromino->orientation = LEFT;
 	tetromino->detected = false;
+	tetromino->is_rotating = false;
+	tetromino->hard_drop = false;
 	return (tetromino);
 }
 
@@ -56,6 +58,9 @@ void	init_game(t_tetris *tetris)
 	change_speed(tetris);
 	tetris->current = allocate_tetromino(tetris);
 	tetris->next = allocate_tetromino(tetris);
+	tetris->mrl_delay = 0.5f;
+	tetris->time_since_last = 0.0f;
+	tetris->delta_time = 1.0f / 60.0f;
 }
 
 void	create_window(t_tetris *tetris)
