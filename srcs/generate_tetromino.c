@@ -1,40 +1,33 @@
 #include "../include/tetris.h"
 
-void	create_tetromino(t_tetris *tetris, t_tetromino *tetromino)
+void shuffle_bag(int *bag, int size)
 {
-	int	select;
-
-	select = rand() % 8 + 1;
-	if (select == I_PIECE)
-		tetromino->colour = I_COLOUR;
-	else if (select == O_PIECE)
-		tetromino->colour = O_COLOUR;
-	else if (select == L_PIECE)
-		tetromino->colour = L_COLOUR;
-	else if (select == J_PIECE)
-		tetromino->colour = J_COLOUR;
-	else if (select == S_PIECE)
-		tetromino->colour = S_COLOUR;
-	else if (select == Z_PIECE)
-		tetromino->colour = Z_COLOUR;
-	if (select == tetris->prev || select == 8)
+	int i = size;
+	while (--i > 0)
 	{
-		select = rand() % 7 + 1;
-		if (select == I_PIECE)
-			tetromino->colour = I_COLOUR;
-		else if (select == O_PIECE)
-			tetromino->colour = O_COLOUR;
-		else if (select == L_PIECE)
-			tetromino->colour = L_COLOUR;
-		else if (select == J_PIECE)
-			tetromino->colour = J_COLOUR;
-		else if (select == S_PIECE)
-			tetromino->colour = S_COLOUR;
-		else if (select == Z_PIECE)
-			tetromino->colour = Z_COLOUR;
+		int j = rand() % (i + 1);
+		int temp = bag[i];
+		bag[i] = bag[j];
+		bag[j] = temp;
 	}
-	tetromino->type = select;
-	tetris->prev = select;
+}
+
+void create_tetromino(t_tetris *tetris, t_tetromino *tetromino)
+{
+	static int queue[7];
+	static int index = 7;
+	int	i = -1;
+
+	if (index == 7)
+	{
+		while (++i < 7)
+			queue[i] = i + 1;
+		shuffle_bag(queue, 7);
+		index = 0;
+		tetris->queue = queue;
+	}
+	tetromino->type = queue[index++];
+	tetromino->colour = TETROMINO_COLORS[tetromino->type];
 }
 
 void	draw_current_tetromino(t_tetris *tetris)

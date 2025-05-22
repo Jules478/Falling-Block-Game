@@ -25,6 +25,18 @@
 
 # define RATIO 24
 
+static const Color TETROMINO_COLORS[] =
+{
+	WALL_COLOUR,
+	I_COLOUR,
+	O_COLOUR,
+	L_COLOUR,
+	J_COLOUR,
+	S_COLOUR,
+	Z_COLOUR,
+	T_COLOUR
+};
+
 typedef enum s_types
 {
 	EMPTY,
@@ -59,8 +71,9 @@ typedef struct s_tetromino
 	Color	colour;
 	int		orientation;
 	bool	detected;
-	bool	is_rotating;
+	int		times_moved;
 	bool	hard_drop;
+	bool	on_ground;
 }	t_tetromino;
 
 typedef struct s_tetris
@@ -87,6 +100,7 @@ typedef struct s_tetris
 	float	mrl_delay;
 	float	time_since_last;
 	float delta_time;
+	int	*queue;
 }	t_tetris;
 
 /////////////// FUNCTIONS ///////////////
@@ -112,5 +126,9 @@ bool		check_collision(t_tetris *tetris, int x, int y);
 int			manage_collision(t_tetris *tetris, t_coord *coord);
 char 		*tet_itoa(t_tetris *tetris, int x);
 void		change_speed(t_tetris *tetris);
+void		lock_tetromino(t_tetris *tetris);
+void		check_game_over(t_tetris *tetris);
+void		draw_ghost(t_tetris *tetris);
+bool		is_tetromino_coord(t_tetromino *tetromino, t_coord coord);
 
 #endif

@@ -2,25 +2,28 @@ NAME = tetris
 
 CC = cc
 
-
 LINK = -lncurses
 
 RM = rm -rf
 
+SRC_DIR = srcs
 SRCS = \
-			srcs/init.c \
-			srcs/tetris.c \
-			srcs/draw_ui.c \
-			srcs/generate_tetromino.c \
-			srcs/draw_game_state.c \
-			srcs/run_game.c \
-			srcs/utils.c \
-			srcs/rotation.c \
-			srcs/speed.c
+			$(SRC_DIR)/init.c \
+			$(SRC_DIR)/tetris.c \
+			$(SRC_DIR)/draw_ui.c \
+			$(SRC_DIR)/generate_tetromino.c \
+			$(SRC_DIR)/draw_game_state.c \
+			$(SRC_DIR)/run_game.c \
+			$(SRC_DIR)/utils.c \
+			$(SRC_DIR)/rotation.c \
+			$(SRC_DIR)/speed.c
 
-OBJS = $(SRCS:.c=.o)
+OBJ_DIR = ./obj
+OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 INCLUDE_DIR := include
+
+HEADERS_DEP = include/tetris.h
 
 LIB_FILES := raylib.a
 LIB_INCLUDE_DIR := raylib/src
@@ -39,11 +42,12 @@ $(NAME): $(LIB_FILES) $(OBJS)
 	@echo "$(GREEN) \nGame Compiled\n$(RESET)"
 	@echo "$(PURPLE)------------------------------------$(RESET)"
 
-%.o: %.c
-	@$(CC) $(CFLAGS) -o $@ -c $<
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS_DEP)
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@$(RM) $(OBJS)
+	@$(RM) $(OBJ_DIR)
 	@echo "$(GREEN)\nOBJS Cleaned\n$(RESET)"
 	@echo "$(PURPLE)------------------------------------$(RESET)"
 

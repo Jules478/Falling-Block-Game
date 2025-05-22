@@ -14,46 +14,41 @@ void	check_game_over(t_tetris *tetris)
 void	advance_one_stage(t_tetris *tetris)
 {
 	int	i = -1;
-	bool	collision = false;
+	// static int c = 0;
 
-	tetris->time_since_last += tetris->delta_time; * 60.0f;
-	if (tetris->current->detected == true)
+	// printf("//// Adanced: %d //////\n", ++c);
+	i = -1;
+	while (++i < 4)
 	{
-		if (tetris->mrl_delay < tetris->time_since_last || tetris->current->hard_drop)
+		if (!is_valid_position(tetris, tetris->current->coord[i].x, tetris->current->coord[i].y + 1))
 		{
-			free(tetris->current->coord);
-			free(tetris->current);
-			check_for_clears(tetris);
-			tetris->current = tetris->next;
-			tetris->next = allocate_tetromino(tetris);
-			create_tetromino(tetris, tetris->next);
-			draw_current_tetromino(tetris);
-			check_game_over(tetris);
-			load_current_tetromino(tetris);
-			tetris->hold = false;
+			tetris->current->on_ground = true;
+			break;
+		}
+		else
+			tetris->current->on_ground = false;
+	}
+	if (tetris->current->on_ground)
+	{
+		tetris->time_since_last += tetris->delta_time * 25.0f;
+		if (tetris->time_since_last >= tetris->mrl_delay || tetris->current->hard_drop || tetris->current->times_moved > 14)
+		{
+			lock_tetromino(tetris);
 			return ;
 		}
-		tetris->current->detected = false;
-		return ;
 	}
+	else
+	{
+		tetris->current->times_moved = 0;
+		tetris->time_since_last = 0.0f;
+		i = -1;
 		while (++i < 4)
 		{
-			if (!is_valid_position(tetris, tetris->current->coord[i].x, tetris->current->coord[i].y + 1))
-			{
-				collision = true;
-				tetris->current->detected = true;
-				tetris->locked = true;
-				break ;
-			}
-		}
-		i = -1;
-		while (++i < 4 && collision == false)
-		{
 			tetris->map[tetris->current->coord[i].y][tetris->current->coord[i].x] = EMPTY;
-			tetris->current->coord[i].y++;				
+			tetris->current->coord[i].y++;
 		}
-	load_current_tetromino(tetris);
-	tetris->current->is_rotating = false;
+		load_current_tetromino(tetris);
+	}
 }
 
 void	swap_held(t_tetris *tetris)
@@ -86,6 +81,7 @@ void	swap_held(t_tetris *tetris)
 		free(tetris->current);
 		tetris->current = tetris->next;
 		tetris->next = allocate_tetromino(tetris);
+		i = -1;
 		create_tetromino(tetris, tetris->next);
 		draw_current_tetromino(tetris);
 		check_game_over(tetris);
@@ -111,6 +107,7 @@ void	detect_input(t_tetris *tetris)
 			tetris->current->coord[i].x--;
 			load_current_tetromino(tetris);
 		}
+		tetris->time_since_last = 0.0f;
 	}
 	else if (IsKeyPressed(KEY_RIGHT) && tetris->current->detected == false)
 	{
@@ -126,6 +123,7 @@ void	detect_input(t_tetris *tetris)
 			tetris->current->coord[i].x++;
 			load_current_tetromino(tetris);
 		}
+		tetris->time_since_last = 0.0f;
 	}
 	else if (IsKeyPressedRepeat(KEY_LEFT) && tetris->current->detected == false)
 	{
@@ -141,6 +139,7 @@ void	detect_input(t_tetris *tetris)
 			tetris->current->coord[i].x--;
 			load_current_tetromino(tetris);
 		}
+		tetris->time_since_last = 0.0f;
 	}
 	else if (IsKeyPressedRepeat(KEY_RIGHT) && tetris->current->detected == false)
 	{
@@ -156,6 +155,7 @@ void	detect_input(t_tetris *tetris)
 			tetris->current->coord[i].x++;
 			load_current_tetromino(tetris);
 		}
+		tetris->time_since_last = 0.0f;
 	}
 	else if (IsKeyPressed(KEY_DOWN) && tetris->current->detected == false)
 	{
@@ -200,9 +200,7 @@ void	detect_input(t_tetris *tetris)
 			swap_held(tetris);
 	}
 	else if (IsKeyPressed(KEY_UP) && tetris->current->detected == false)
-	{
 		rotate_tetromino(tetris);
-	}
 }
 
 void	clear_line(t_tetris *tetris, int i)

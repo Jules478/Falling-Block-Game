@@ -105,7 +105,6 @@ void	hard_drop(t_tetris *tetris)
 			tetris->map[tetris->current->coord[i].y][tetris->current->coord[i].x] = EMPTY;
 			tetris->current->coord[i].y++;
 		}
-		
 	}
 }
 
@@ -120,4 +119,21 @@ char *tet_itoa(t_tetris *tetris, int x)
 		close_game(tetris, 1, true);
 	snprintf(str, len + 1, "%d", x);
 	return (str);
+}
+
+void	lock_tetromino(t_tetris *tetris)
+{
+	free(tetris->current->coord);
+	free(tetris->current);
+	tetris->current = NULL;
+	check_for_clears(tetris);
+	tetris->current = tetris->next;
+	tetris->next = allocate_tetromino(tetris);
+	create_tetromino(tetris, tetris->next);
+	draw_current_tetromino(tetris);
+	check_game_over(tetris);
+	load_current_tetromino(tetris);
+	tetris->hold = false;
+	tetris->time_since_last = 0.0f;
+	return;
 }

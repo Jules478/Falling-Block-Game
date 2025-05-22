@@ -13,43 +13,44 @@ void rotate_tetromino(t_tetris *tetris)
 	t_coord *temp;
 
 	if (tetris->current->type == O_PIECE)
+	{
+		tetris->current->times_moved++;
 		return ;
+	}
 	if (tetris->current->type == I_PIECE)
 	{
  		switch (tetris->current->orientation)
-	{
-		case LEFT:
 		{
-			pivot_x = (float)(tetris->current->coord[0].x + tetris->current->coord[3].x) / 2;
-			pivot_y = (float)(tetris->current->coord[0].y + tetris->current->coord[0].y + 1) / 2;
-			rot = UP;
-			break;
-		}
+			case LEFT:
+			{
+				pivot_x = (float)(tetris->current->coord[0].x + tetris->current->coord[3].x) / 2;
+				pivot_y = (float)(tetris->current->coord[0].y + tetris->current->coord[0].y + 1) / 2;
+				rot = UP;
+				break;
+			}
 
-		case UP:
-		{
-			pivot_x = (float)(tetris->current->coord[0].x + tetris->current->coord[0].x - 1) / 2;
-			pivot_y = (float)(tetris->current->coord[0].y + tetris->current->coord[3].y) / 2;
-			rot = RIGHT;
-			break;
+			case UP:
+			{
+				pivot_x = (float)(tetris->current->coord[0].x + tetris->current->coord[0].x - 1) / 2;
+				pivot_y = (float)(tetris->current->coord[0].y + tetris->current->coord[3].y) / 2;
+				rot = RIGHT;
+				break;
+			}
+			case RIGHT:
+			{
+				pivot_x = (float)(tetris->current->coord[0].x + tetris->current->coord[3].x) / 2;
+				pivot_y = (float)(tetris->current->coord[0].y + tetris->current->coord[0].y - 1) / 2;
+				rot = DOWN;
+				break;
+			}	
+			case DOWN:
+			{
+				pivot_x = (float)(tetris->current->coord[0].x + tetris->current->coord[0].x + 1) / 2;
+				pivot_y = (float)(tetris->current->coord[0].y + tetris->current->coord[3].y) / 2;
+				rot = LEFT;
+				break;
+			}
 		}
-
-		case RIGHT:
-		{
-			pivot_x = (float)(tetris->current->coord[0].x + tetris->current->coord[3].x) / 2;
-			pivot_y = (float)(tetris->current->coord[0].y + tetris->current->coord[0].y - 1) / 2;
-			rot = DOWN;
-			break;
-		}
-
-		case DOWN:
-		{
-			pivot_x = (float)(tetris->current->coord[0].x + tetris->current->coord[0].x + 1) / 2;
-			pivot_y = (float)(tetris->current->coord[0].y + tetris->current->coord[3].y) / 2;
-			rot = LEFT;
-			break;
-		}
-	}
 		i = -1;
 	}
 	else
@@ -79,10 +80,10 @@ void rotate_tetromino(t_tetris *tetris)
 	else
 		tetris->current->orientation = rot;
 	if (manage_collision(tetris, temp))
-		{
-			free(temp);
-			return ;
-		}
+	{
+		free(temp);
+		return ;
+	}
 	i = -1;
 	while (++i < 4)
 		tetris->map[tetris->current->coord[i].y][tetris->current->coord[i].x] = EMPTY;
@@ -90,5 +91,7 @@ void rotate_tetromino(t_tetris *tetris)
 	tetris->current->coord = temp;
 	load_current_tetromino(tetris);
 	tetris->time_since_last = 0.0f;
+	if (++tetris->current->times_moved > 15 && is_valid_position(tetris, tetris->current->coord[i].x, tetris->current->coord[i].y + 1))
+		lock_tetromino(tetris);
 }
 
