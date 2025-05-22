@@ -137,3 +137,25 @@ void	lock_tetromino(t_tetris *tetris)
 	tetris->time_since_last = 0.0f;
 	return;
 }
+
+void	check_lock(t_tetris *tetris)
+{
+	int i;
+
+	if (tetris->current->on_ground)
+	{
+		i = -1;
+		while (++i < 4)
+		{
+			if (!is_valid_position(tetris, tetris->current->coord[i].x, tetris->current->coord[i].y + 1))
+			{
+				if (tetris->time_since_last >= tetris->mrl_delay || tetris->current->hard_drop || tetris->current->times_moved > 14)
+				{
+					lock_tetromino(tetris);
+					return ;
+				}
+			}
+		}
+		tetris->current->on_ground = false;
+	}
+}

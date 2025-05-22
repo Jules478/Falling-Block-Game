@@ -59,7 +59,7 @@ void	init_game(t_tetris *tetris)
 	change_speed(tetris);
 	tetris->current = allocate_tetromino(tetris);
 	tetris->next = allocate_tetromino(tetris);
-	tetris->mrl_delay = 0.5f;
+	tetris->mrl_delay = 30.0f;
 	tetris->time_since_last = 0.0f;
 	tetris->delta_time = 1.0f / 60.0f;
 	tetris->queue = NULL;

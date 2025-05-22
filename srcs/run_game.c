@@ -28,16 +28,7 @@ void	advance_one_stage(t_tetris *tetris)
 		else
 			tetris->current->on_ground = false;
 	}
-	if (tetris->current->on_ground)
-	{
-		tetris->time_since_last += tetris->delta_time * 25.0f;
-		if (tetris->time_since_last >= tetris->mrl_delay || tetris->current->hard_drop || tetris->current->times_moved > 14)
-		{
-			lock_tetromino(tetris);
-			return ;
-		}
-	}
-	else
+	if (!tetris->current->on_ground)
 	{
 		tetris->current->times_moved = 0;
 		tetris->time_since_last = 0.0f;

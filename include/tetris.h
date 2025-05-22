@@ -10,6 +10,7 @@
 # include <errno.h>
 # include <time.h>
 # include <math.h>
+# include "../libft/libft.h"
 # include "raylib.h"
 
 # define I_COLOUR SKYBLUE
@@ -101,6 +102,7 @@ typedef struct s_tetris
 	float	time_since_last;
 	float delta_time;
 	int	*queue;
+	char	**highscores;
 }	t_tetris;
 
 /////////////// FUNCTIONS ///////////////
@@ -130,5 +132,6 @@ void		lock_tetromino(t_tetris *tetris);
 void		check_game_over(t_tetris *tetris);
 void		draw_ghost(t_tetris *tetris);
 bool		is_tetromino_coord(t_tetromino *tetromino, t_coord coord);
+void		check_lock(t_tetris *tetris);
 
 #endif

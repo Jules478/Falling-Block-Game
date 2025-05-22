@@ -2,6 +2,13 @@
 
 void	close_game(t_tetris *tetris, int ex, bool start)
 {
+	int	i = -1;
+
+	if (tetris->highscores)
+	{
+		while (tetris->highscores[++i])
+			free(tetris->highscores[i]);
+	}
 	free(tetris->level_str);
 	free(tetris->score_str);
 	if (tetris->current)
@@ -59,6 +66,8 @@ int	main()
 			advance_one_stage(&tetris);
 			time_elapsed -= tetris.speed;
 		}
+		tetris.time_since_last += tetris.delta_time * 60.0f;
+		check_lock(&tetris);
 		EndDrawing();
 	}
 	close_game(&tetris, 0, true);

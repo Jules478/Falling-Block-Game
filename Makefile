@@ -21,6 +21,12 @@ SRCS = \
 OBJ_DIR = ./obj
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
+LIBFT_DIR 		= ./libft
+
+LIBFT = $(LIBFT_DIR)/libft.a
+
+HEADERS = -I./include -I$(LIBFT_DIR)/include
+
 INCLUDE_DIR := include
 
 HEADERS_DEP = include/tetris.h
@@ -35,24 +41,29 @@ GREEN = \e[1;32m
 PURPLE = \e[1;35m
 RESET = \033[0m
 
-all: $(NAME)
+all: $(LIBFT) $(NAME)
 
 $(NAME): $(LIB_FILES) $(OBJS)
-	@$(CC) $(OBJS) $(LIB_FILES) $(CFLAGS) $(LIBRARY_FLAGS) $(LINK) -o $(NAME)
+	@$(CC) $(OBJS) $(LIB_FILES) $(CFLAGS) $(LIBFT) $(HEADERS) $(LIBRARY_FLAGS) $(LINK) -o $(NAME)
 	@echo "$(GREEN) \nGame Compiled\n$(RESET)"
 	@echo "$(PURPLE)------------------------------------$(RESET)"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS_DEP)
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@
+
+$(LIBFT):
+	@make -C $(LIBFT_DIR) --no-print-directory
 
 clean:
 	@$(RM) $(OBJ_DIR)
+	@make -C $(LIBFT_DIR) clean --no-print-directory
 	@echo "$(GREEN)\nOBJS Cleaned\n$(RESET)"
 	@echo "$(PURPLE)------------------------------------$(RESET)"
 
 fclean: clean
 	@$(RM) $(NAME)
+	@make -C $(LIBFT_DIR) fclean --no-print-directory
 	@echo "$(GREEN)\nExecutable Clean Complete\n$(RESET)"
 	@echo "$(PURPLE)------------------------------------$(RESET)"
 
@@ -60,6 +71,7 @@ re: fclean all
 
 full: fclean all
 	@$(RM) $(OBJS)
+	@make -C $(LIBFT_DIR) clean --no-print-directory
 	@echo "$(GREEN)\nOBJS Cleaned\n$(RESET)"
 	@echo "$(PURPLE)------------------------------------$(RESET)"
 

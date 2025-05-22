@@ -91,7 +91,7 @@ void rotate_tetromino(t_tetris *tetris)
 	tetris->current->coord = temp;
 	load_current_tetromino(tetris);
 	tetris->time_since_last = 0.0f;
-	if (++tetris->current->times_moved > 15 && is_valid_position(tetris, tetris->current->coord[i].x, tetris->current->coord[i].y + 1))
-		lock_tetromino(tetris);
+	if (++tetris->current->times_moved)
+		check_lock(tetris);
 }
 
