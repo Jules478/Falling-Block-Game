@@ -105,6 +105,7 @@ typedef struct s_tetris
 	char	**highscores;
 	char **highscores_list;
 	bool	game_over;
+	bool	paused;
 }	t_tetris;
 
 /////////////// FUNCTIONS ///////////////
@@ -140,5 +141,6 @@ void		add_high_score(t_tetris *tetris);
 void		draw_high_scores(t_tetris *tetris);
 void		grey_out_tetrominos(t_tetris *tetris);
 void		game_over_screen(t_tetris *tetris);
+void		check_pause(t_tetris *tetris);
 
 #endif

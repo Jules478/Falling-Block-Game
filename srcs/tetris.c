@@ -62,25 +62,31 @@ int	main()
 	while(!WindowShouldClose())
 	{
 		BeginDrawing();
+
 		draw_ui(&tetris);
 		draw_game_state(&tetris);
-		if (tetris.game_over == true)
+		check_pause(&tetris);
+		if (tetris.paused == false)
 		{
-			grey_out_tetrominos(&tetris);
-			game_over_screen(&tetris);
-		}
-		else
-		{
-			draw_held_tetromino(&tetris);
-			detect_input(&tetris);
-			time_elapsed += tetris.delta_time * 60.0f;
-			if (time_elapsed >= tetris.speed && tetris.game_over == false)
+			if (tetris.game_over == true)
 			{
-				advance_one_stage(&tetris);
-				time_elapsed -= tetris.speed;
+				grey_out_tetrominos(&tetris);
+				game_over_screen(&tetris);
 			}
-			tetris.time_since_last += tetris.delta_time * 60.0f;
-			check_lock(&tetris);
+			else
+			{
+				draw_held_tetromino(&tetris);
+				if (tetris.paused == false)
+				detect_input(&tetris);
+				time_elapsed += tetris.delta_time * 60.0f;
+				if (time_elapsed >= tetris.speed && tetris.game_over == false)
+				{
+					advance_one_stage(&tetris);
+					time_elapsed -= tetris.speed;
+				}
+				tetris.time_since_last += tetris.delta_time * 60.0f;
+				check_lock(&tetris);
+			}
 		}
 		EndDrawing();
 	}
