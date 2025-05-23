@@ -103,6 +103,7 @@ typedef struct s_tetris
 	float delta_time;
 	int	*queue;
 	char	**highscores;
+	char **highscores_list;
 	bool	game_over;
 }	t_tetris;
 

@@ -9,6 +9,12 @@ void	close_game(t_tetris *tetris, int ex, bool start)
 		while (tetris->highscores[++i])
 			free(tetris->highscores[i]);
 	}
+	i = -1;
+	if (tetris->highscores_list)
+	{
+		while (tetris->highscores_list[++i])
+			free(tetris->highscores_list[i]);
+	}
 	free(tetris->level_str);
 	free(tetris->score_str);
 	if (tetris->current)
@@ -60,20 +66,22 @@ int	main()
 		draw_game_state(&tetris);
 		if (tetris.game_over == true)
 		{
-			add_high_score(&tetris);
 			grey_out_tetrominos(&tetris);
 			game_over_screen(&tetris);
 		}
-		draw_held_tetromino(&tetris);
-		detect_input(&tetris);
-		time_elapsed += tetris.delta_time * 60.0f;
-    	if (time_elapsed >= tetris.speed && tetris.game_over == false)
+		else
 		{
-			advance_one_stage(&tetris);
-			time_elapsed -= tetris.speed;
+			draw_held_tetromino(&tetris);
+			detect_input(&tetris);
+			time_elapsed += tetris.delta_time * 60.0f;
+			if (time_elapsed >= tetris.speed && tetris.game_over == false)
+			{
+				advance_one_stage(&tetris);
+				time_elapsed -= tetris.speed;
+			}
+			tetris.time_since_last += tetris.delta_time * 60.0f;
+			check_lock(&tetris);
 		}
-		tetris.time_since_last += tetris.delta_time * 60.0f;
-		check_lock(&tetris);
 		EndDrawing();
 	}
 	close_game(&tetris, 0, true);
