@@ -8,8 +8,9 @@ void	check_game_over(t_tetris *tetris)
 	{
 		if (check_collision(tetris, tetris->current->coord[i].x, tetris->current->coord[i].y))
 		{
-			add_high_score(tetris);
-			close_game(tetris, 0, true);
+			tetris->game_over = true;
+			return ;
+			//close_game(tetris, 0, true);
 		}
 	}
 }
@@ -59,6 +60,8 @@ void	swap_held(t_tetris *tetris)
 		tetris->current = temp;
 		draw_current_tetromino(tetris);
 		check_game_over(tetris);
+		if (tetris->game_over == true)
+			return ;
 		load_current_tetromino(tetris);
 		draw_held_tetromino(tetris);
 	}
@@ -79,6 +82,8 @@ void	swap_held(t_tetris *tetris)
 		create_tetromino(tetris, tetris->next);
 		draw_current_tetromino(tetris);
 		check_game_over(tetris);
+		if (tetris->game_over == true)
+			return ;
 		load_current_tetromino(tetris);
 	}
 	tetris->hold = true;

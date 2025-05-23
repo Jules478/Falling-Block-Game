@@ -103,6 +103,7 @@ typedef struct s_tetris
 	float delta_time;
 	int	*queue;
 	char	**highscores;
+	bool	game_over;
 }	t_tetris;
 
 /////////////// FUNCTIONS ///////////////
@@ -136,5 +137,7 @@ void		check_lock(t_tetris *tetris);
 void		fetch_high_scores(t_tetris *tetris);
 void		add_high_score(t_tetris *tetris);
 void		draw_high_scores(t_tetris *tetris);
+void		grey_out_tetrominos(t_tetris *tetris);
+void		game_over_screen(t_tetris *tetris);
 
 #endif

@@ -63,6 +63,7 @@ void	init_game(t_tetris *tetris)
 	tetris->time_since_last = 0.0f;
 	tetris->delta_time = 1.0f / 60.0f;
 	tetris->queue = NULL;
+	tetris->game_over = false;
 	fetch_high_scores(tetris);
 }
 

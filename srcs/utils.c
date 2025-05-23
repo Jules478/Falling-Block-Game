@@ -132,6 +132,8 @@ void	lock_tetromino(t_tetris *tetris)
 	create_tetromino(tetris, tetris->next);
 	draw_current_tetromino(tetris);
 	check_game_over(tetris);
+	if (tetris->game_over == true)
+			return ;
 	load_current_tetromino(tetris);
 	tetris->hold = false;
 	tetris->time_since_last = 0.0f;

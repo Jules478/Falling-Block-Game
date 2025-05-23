@@ -7,9 +7,7 @@ void	draw_high_scores(t_tetris *tetris)
 	if (!tetris->highscores)
 		return ;
 	while (tetris->highscores[++i])
-	{
 		DrawText(tetris->highscores[i], (12 * tetris->size) + 5, ((15 + i) * tetris->size) + 5, tetris->size - 1, WHITE);
-	}
 }
 
 void	fetch_high_scores(t_tetris *tetris)

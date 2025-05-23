@@ -58,10 +58,16 @@ int	main()
 		BeginDrawing();
 		draw_ui(&tetris);
 		draw_game_state(&tetris);
+		if (tetris.game_over == true)
+		{
+			add_high_score(&tetris);
+			grey_out_tetrominos(&tetris);
+			game_over_screen(&tetris);
+		}
 		draw_held_tetromino(&tetris);
 		detect_input(&tetris);
 		time_elapsed += tetris.delta_time * 60.0f;
-    	if (time_elapsed >= tetris.speed)
+    	if (time_elapsed >= tetris.speed && tetris.game_over == false)
 		{
 			advance_one_stage(&tetris);
 			time_elapsed -= tetris.speed;
