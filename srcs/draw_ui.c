@@ -92,7 +92,6 @@ void	draw_ui(t_tetris *tetris)
 	DrawText(tetris->score_str, (15 * tetris->size) + 5, (12 * tetris->size) + 5, tetris->size - 1, WHITE);
 	DrawRectangle(12 * tetris->size, 13 * tetris->size, 7 * tetris->size, 1 * tetris->size, GRAY);
 	DrawText("High Scores:", (12 * tetris->size) + 5, (14 * tetris->size) + 5, tetris->size - 1, WHITE);
-	
-	
+	draw_high_scores(tetris);
 	draw_next_tetromino(tetris);
 }
