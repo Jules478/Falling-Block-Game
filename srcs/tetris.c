@@ -15,8 +15,6 @@ void	close_game(t_tetris *tetris, int ex, bool start)
 		while (tetris->highscores_list[++i])
 			free(tetris->highscores_list[i]);
 	}
-	free(tetris->level_str);
-	free(tetris->score_str);
 	if (tetris->current)
 	{
 		if (tetris->current->coord)
@@ -75,7 +73,6 @@ int	main()
 			}
 			else
 			{
-				draw_held_tetromino(&tetris);
 				if (tetris.paused == false)
 				detect_input(&tetris);
 				time_elapsed += tetris.delta_time * 60.0f;

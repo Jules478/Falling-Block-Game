@@ -108,19 +108,6 @@ void	hard_drop(t_tetris *tetris)
 	}
 }
 
-char *tet_itoa(t_tetris *tetris, int x)
-{
-	int	len;
-	char *str;
-
-	len = snprintf(NULL, 0, "%d", x);
-	str = malloc(len + 1);
-	if (!str)
-		close_game(tetris, 1, true);
-	snprintf(str, len + 1, "%d", x);
-	return (str);
-}
-
 void	lock_tetromino(t_tetris *tetris)
 {
 	free(tetris->current->coord);
@@ -174,4 +161,23 @@ void	check_pause(t_tetris *tetris)
 		DrawRectangle((5 * tetris->size) + margin, (7 * tetris->size) + margin, (8 * tetris->size) - (margin * 2) - 1, (3 * tetris->size) - (margin * 2) - 1, BLACK);
 		DrawText("Paused", (7 * tetris->size) + 5, (8 * tetris->size) + 5, tetris->size - 1, WHITE);
 	}
+}
+
+int	intlen(int num)
+{
+	int len = 0;
+
+	if (num == 0)
+		return 1;
+	if (num < 0)
+	{
+		len++;
+		num = -num;
+	}
+	while (num > 0)
+	{
+		num /= 10;
+		len++;
+	}
+	return (len);
 }

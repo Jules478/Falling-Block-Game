@@ -67,6 +67,8 @@ void	draw_ui(t_tetris *tetris)
 {
 	int	i;
 	int	j;
+	char score[15];
+	char level[10];
 
 	ClearBackground(BLACK);
 	i = -1;
@@ -86,12 +88,13 @@ void	draw_ui(t_tetris *tetris)
 	DrawTexture(tetris->controls, 0 * tetris->size, 22 * tetris->size, WHITE);
 	DrawText("Next", (12 * tetris->size) + 5, (1 * tetris->size) + 5, tetris->size - 1, WHITE);
 	DrawText("Held", (12 * tetris->size) + 5, (6 * tetris->size) + 5, tetris->size - 1, WHITE);
-	DrawText("Level:", (12 * tetris->size) + 5, (11 * tetris->size) + 5, tetris->size - 1, WHITE);
-	DrawText(tetris->level_str, (15 * tetris->size) + 5, (11 * tetris->size) + 5, tetris->size - 1, WHITE);
-	DrawText("Score:", (12 * tetris->size) + 5, (12 * tetris->size) + 5, tetris->size - 1, WHITE);
-	DrawText(tetris->score_str, (15 * tetris->size) + 5, (12 * tetris->size) + 5, tetris->size - 1, WHITE);
+	snprintf(level, sizeof(level), "Level: %d", tetris->level);
+	DrawText(level, (12 * tetris->size) + 5, (11 * tetris->size) + 5, tetris->size - 1, WHITE);
+	snprintf(score, sizeof(score), "Score: %d", tetris->score_int);
+	DrawText(score, (12 * tetris->size) + 5, (12 * tetris->size) + 5, tetris->size - 1, WHITE);
 	DrawRectangle(12 * tetris->size, 13 * tetris->size, 7 * tetris->size, 1 * tetris->size, GRAY);
 	DrawText("High Scores:", (12 * tetris->size) + 5, (14 * tetris->size) + 5, tetris->size - 1, WHITE);
 	draw_high_scores(tetris);
 	draw_next_tetromino(tetris);
+	draw_held_tetromino(tetris);
 }

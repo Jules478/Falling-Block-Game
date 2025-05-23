@@ -245,41 +245,31 @@ void	check_for_clears(t_tetris *tetris)
 	}
 	if (count == 1)
 	{
-		tetris->score_int += (100 * tetris->level_int);
-		free(tetris->score_str);
-		tetris->score_str = tet_itoa(tetris, tetris->score_int);
+		tetris->score_int += (100 * tetris->level);
 		tetris->btb = 0;
 	}
 	else if (count == 2)
 	{
-		tetris->score_int += (300 * tetris->level_int);
-		free(tetris->score_str);
-		tetris->score_str = tet_itoa(tetris, tetris->score_int);
+		tetris->score_int += (300 * tetris->level);
 		tetris->btb = 0;
 	}
 	else if (count == 3)
 	{
-		tetris->score_int += (500 * tetris->level_int);
-		free(tetris->score_str);
-		tetris->score_str = tet_itoa(tetris, tetris->score_int);
+		tetris->score_int += (500 * tetris->level);
 		tetris->btb = 0;
 	}
 	else if (count == 4)
 	{
 		if (tetris->btb == 1)
-			tetris->score_int += (1200 * tetris->level_int);
+			tetris->score_int += (1200 * tetris->level);
 		else
-			tetris->score_int += (800 * tetris->level_int);
-		free(tetris->score_str);
-		tetris->score_str = tet_itoa(tetris, tetris->score_int);
+			tetris->score_int += (800 * tetris->level);
 		tetris->btb = 1;
 	}
 	tetris->level_prog += count;
 	if (tetris->level_prog > 9)
 	{
-		tetris->level_int++;
-		free(tetris->level_str);
-		tetris->level_str = tet_itoa(tetris, tetris->level_int);
+		tetris->level++;
 		tetris->level_prog -= 10;
 	}
 	change_speed(tetris);

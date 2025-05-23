@@ -62,7 +62,7 @@ void	fetch_high_scores(t_tetris *tetris)
 	split_high_score(tetris);
 }
 
-void	add_high_score(t_tetris *tetris)
+void	add_high_score(t_tetris *tetris, char *full)
 {
 	int	fd;
 	int	i = -1;
@@ -80,13 +80,13 @@ void	add_high_score(t_tetris *tetris)
 				break;
 			if (!tetris->highscores_list[i] && saved == false)
 			{
-				dprintf(fd, "%s", tetris->score_str);
+				dprintf(fd, "%s: %d", full, tetris->score_int);
 				break;
 			}
 			if (tetris->score_int > atoi(tetris->highscores[i]) && saved == false)
 			{
 				saved = true;
-				dprintf(fd, "%s", tetris->score_str);
+				dprintf(fd, "%s: %d", full, tetris->score_int);
 				i--;
 				j--;
 			}
