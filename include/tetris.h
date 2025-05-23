@@ -133,5 +133,7 @@ void		check_game_over(t_tetris *tetris);
 void		draw_ghost(t_tetris *tetris);
 bool		is_tetromino_coord(t_tetromino *tetromino, t_coord coord);
 void		check_lock(t_tetris *tetris);
+void		fetch_high_scores(t_tetris *tetris);
+void		add_high_score(t_tetris *tetris);
 
 #endif

@@ -7,7 +7,10 @@ void	check_game_over(t_tetris *tetris)
 	while (++i < 4)
 	{
 		if (check_collision(tetris, tetris->current->coord[i].x, tetris->current->coord[i].y))
+		{
+			add_high_score(tetris);
 			close_game(tetris, 0, true);
+		}
 	}
 }
 

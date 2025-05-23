@@ -16,7 +16,8 @@ SRCS = \
 			$(SRC_DIR)/run_game.c \
 			$(SRC_DIR)/utils.c \
 			$(SRC_DIR)/rotation.c \
-			$(SRC_DIR)/speed.c
+			$(SRC_DIR)/speed.c \
+			$(SRC_DIR)/high_scores.c
 
 OBJ_DIR = ./obj
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
