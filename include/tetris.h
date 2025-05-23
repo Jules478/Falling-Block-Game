@@ -92,7 +92,7 @@ typedef struct s_tetris
 	bool		hold;
 	bool		locked;
 	int			prev;
-	int			score_int;
+	int			score;
 	int			level;
 	int			level_prog;
 	int			btb;

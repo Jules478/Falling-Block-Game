@@ -245,25 +245,25 @@ void	check_for_clears(t_tetris *tetris)
 	}
 	if (count == 1)
 	{
-		tetris->score_int += (100 * tetris->level);
+		tetris->score += (100 * tetris->level);
 		tetris->btb = 0;
 	}
 	else if (count == 2)
 	{
-		tetris->score_int += (300 * tetris->level);
+		tetris->score += (300 * tetris->level);
 		tetris->btb = 0;
 	}
 	else if (count == 3)
 	{
-		tetris->score_int += (500 * tetris->level);
+		tetris->score += (500 * tetris->level);
 		tetris->btb = 0;
 	}
 	else if (count == 4)
 	{
 		if (tetris->btb == 1)
-			tetris->score_int += (1200 * tetris->level);
+			tetris->score += (1200 * tetris->level);
 		else
-			tetris->score_int += (800 * tetris->level);
+			tetris->score += (800 * tetris->level);
 		tetris->btb = 1;
 	}
 	tetris->level_prog += count;

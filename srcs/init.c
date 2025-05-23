@@ -50,7 +50,7 @@ void	init_game(t_tetris *tetris)
 	tetris->hold = false;
 	tetris->locked = false;
 	tetris->prev = -1;
-	tetris->score_int = 0;
+	tetris->score = 0;
 	tetris->level = 1;
 	tetris->level_prog = 0;
 	tetris->btb = 0;

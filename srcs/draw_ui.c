@@ -90,7 +90,7 @@ void	draw_ui(t_tetris *tetris)
 	DrawText("Held", (12 * tetris->size) + 5, (6 * tetris->size) + 5, tetris->size - 1, WHITE);
 	snprintf(level, sizeof(level), "Level: %d", tetris->level);
 	DrawText(level, (12 * tetris->size) + 5, (11 * tetris->size) + 5, tetris->size - 1, WHITE);
-	snprintf(score, sizeof(score), "Score: %d", tetris->score_int);
+	snprintf(score, sizeof(score), "Score: %d", tetris->score);
 	DrawText(score, (12 * tetris->size) + 5, (12 * tetris->size) + 5, tetris->size - 1, WHITE);
 	DrawRectangle(12 * tetris->size, 13 * tetris->size, 7 * tetris->size, 1 * tetris->size, GRAY);
 	DrawText("High Scores:", (12 * tetris->size) + 5, (14 * tetris->size) + 5, tetris->size - 1, WHITE);

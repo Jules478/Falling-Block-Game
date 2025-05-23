@@ -80,13 +80,13 @@ void	add_high_score(t_tetris *tetris, char *full)
 				break;
 			if (!tetris->highscores_list[i] && saved == false)
 			{
-				dprintf(fd, "%s: %d", full, tetris->score_int);
+				dprintf(fd, "%s: %d", full, tetris->score);
 				break;
 			}
-			if (tetris->score_int > atoi(tetris->highscores[i]) && saved == false)
+			if (tetris->score > atoi(tetris->highscores[i]) && saved == false)
 			{
 				saved = true;
-				dprintf(fd, "%s: %d", full, tetris->score_int);
+				dprintf(fd, "%s: %d", full, tetris->score);
 				i--;
 				j--;
 			}
@@ -96,7 +96,7 @@ void	add_high_score(t_tetris *tetris, char *full)
 	}
 	else
 	{
-		dprintf(fd, "%d\n", tetris->score_int);
+		dprintf(fd, "%d\n", tetris->score);
 	}
 	close(fd);
 }

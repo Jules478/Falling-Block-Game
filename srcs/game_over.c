@@ -41,7 +41,7 @@ void	game_over_screen(t_tetris *tetris)
 {
 	int	margin = tetris->size / 10;
 	char score[20];
-	int len = intlen(tetris->score_int);
+	int len = intlen(tetris->score);
 	int	i = -1;
 	static char	name[4];
 	int	c;
@@ -49,13 +49,13 @@ void	game_over_screen(t_tetris *tetris)
 	DrawRectangle(3 * tetris->size, 6 * tetris->size, 14 * tetris->size, 8 * tetris->size, LIGHTGRAY);
 	DrawRectangle((3 * tetris->size) + margin, (6 * tetris->size) + margin, (14 * tetris->size) - (margin * 2) - 1, (8 * tetris->size) - (margin * 2) - 1, BLACK);
 	DrawText("Game Over", (7 * tetris->size) + 5 + (tetris->size / 2), (6 * tetris->size) + 5, tetris->size - 1, WHITE);
-	snprintf(score, sizeof(score), "Your Score: %d", tetris->score_int);
+	snprintf(score, sizeof(score), "Your Score: %d", tetris->score);
 	DrawText(score, ((7 - (len / 2)) * tetris->size) + 5, (8 * tetris->size) + 5, tetris->size - 1, WHITE);
 	if (tetris->highscores)
 	{
 		while (tetris->highscores[++i])
 		{
-			if (tetris->score_int > atoi(tetris->highscores[i]))
+			if (tetris->score > atoi(tetris->highscores[i]))
 			{
 				DrawText("New High Score!", (6 * tetris->size) + 5, (9 * tetris->size) + 5, tetris->size - 1, WHITE);
 				DrawText("Enter Name:", (7 * tetris->size) + 5, (10 * tetris->size) + 5, tetris->size - 1, WHITE);
