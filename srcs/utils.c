@@ -153,13 +153,15 @@ void	check_pause(t_tetris *tetris)
 {
 	int	margin = tetris->size / 10;
 
+	if (tetris->game_over == true)
+		return ;
 	if (IsKeyPressed(KEY_P))
 		tetris->paused = !tetris->paused;
 	if (tetris->paused == true)
 	{
-		DrawRectangle(5 * tetris->size, 7 * tetris->size, 8 * tetris->size, 3 * tetris->size, LIGHTGRAY);
-		DrawRectangle((5 * tetris->size) + margin, (7 * tetris->size) + margin, (8 * tetris->size) - (margin * 2) - 1, (3 * tetris->size) - (margin * 2) - 1, BLACK);
-		DrawText("Paused", (7 * tetris->size) + 5, (8 * tetris->size) + 5, tetris->size - 1, WHITE);
+		DrawRectangle(2 * tetris->size, 7 * tetris->size, 8 * tetris->size, 3 * tetris->size, LIGHTGRAY);
+		DrawRectangle((2 * tetris->size) + margin, (7 * tetris->size) + margin, (8 * tetris->size) - (margin * 2) - 1, (3 * tetris->size) - (margin * 2) - 1, BLACK);
+		DrawText("Paused", (4 * tetris->size) + 5, (8 * tetris->size) + 5, tetris->size - 1, WHITE);
 	}
 }
 

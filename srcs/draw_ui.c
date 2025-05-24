@@ -2,7 +2,7 @@
 
 void	draw_controls(t_tetris *tetris)
 {
-	Image image = LoadImage("image/controlwhite.png");
+	Image image = LoadImage("include/controlwhite.png");
 	if (!image.data)
 		exit (1);
 	ImageResize(&image, 20 * tetris->size, 2 * tetris->size);

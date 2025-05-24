@@ -3,10 +3,13 @@
 void shuffle_bag(int *bag, int size)
 {
 	int i = size;
+	int	j;
+	int	temp;
+
 	while (--i > 0)
 	{
-		int j = rand() % (i + 1);
-		int temp = bag[i];
+		j = rand() % (i + 1);
+		temp = bag[i];
 		bag[i] = bag[j];
 		bag[j] = temp;
 	}

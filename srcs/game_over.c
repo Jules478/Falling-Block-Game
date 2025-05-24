@@ -32,6 +32,8 @@ int	write_name(char *name)
 	}
 	if (i == 3)
 		return (i);
+	if (!(c >= KEY_A && c <= KEY_Z))
+		return (i);
 	name[i] = c;
 	i++;
 	return (i);
@@ -55,7 +57,7 @@ void	game_over_screen(t_tetris *tetris)
 	{
 		while (tetris->highscores[++i])
 		{
-			if (tetris->score > atoi(tetris->highscores[i]))
+			if (tetris->score > atoi(tetris->highscores[i]) || (!tetris->highscores[i + 1] && i < 5))
 			{
 				DrawText("New High Score!", (6 * tetris->size) + 5, (9 * tetris->size) + 5, tetris->size - 1, WHITE);
 				DrawText("Enter Name:", (7 * tetris->size) + 5, (10 * tetris->size) + 5, tetris->size - 1, WHITE);
