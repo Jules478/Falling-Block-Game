@@ -26,7 +26,7 @@
 
 # define RATIO 24
 
-static const Color TETROMINO_COLORS[] =
+static const Color tetromino_colours[] =
 {
 	WALL_COLOUR,
 	I_COLOUR,
@@ -36,6 +36,26 @@ static const Color TETROMINO_COLORS[] =
 	S_COLOUR,
 	Z_COLOUR,
 	T_COLOUR
+};
+
+static const float time_steps[16] = 
+{
+    0.0f,
+    0.01667f,
+    0.02101f,
+    0.026977f,
+    0.035256f,
+    0.04693f,
+    0.06361f,
+    0.0879f,
+    0.1236f,
+    0.1775f,
+    0.2598f,
+    0.388f,
+    0.59f,
+    0.92f,
+    1.46f,
+    2.36f
 };
 
 typedef enum s_types

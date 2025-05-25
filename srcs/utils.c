@@ -183,3 +183,10 @@ int	intlen(int num)
 	}
 	return (len);
 }
+
+void change_speed(t_tetris *tetris)
+{
+	if (tetris->level > 15)
+		return ;
+	tetris->speed = 1.0f / time_steps[tetris->level];
+}

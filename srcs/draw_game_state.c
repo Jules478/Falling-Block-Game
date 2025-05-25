@@ -74,7 +74,7 @@ void	draw_game_state(t_tetris *tetris)
 		j = 0;
 		while (++j < 11)
 			if (tetris->map[i][j] != EMPTY)
-				DrawRectangle(j * tetris->size, i * tetris->size, tetris->tet_size, tetris->tet_size, TETROMINO_COLORS[tetris->map[i][j]]);
+				DrawRectangle(j * tetris->size, i * tetris->size, tetris->tet_size, tetris->tet_size, tetromino_colours[tetris->map[i][j]]);
 	}
 	if (tetris->current)
 		draw_ghost(tetris);

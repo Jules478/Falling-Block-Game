@@ -30,7 +30,7 @@ void create_tetromino(t_tetris *tetris, t_tetromino *tetromino)
 		tetris->queue = queue;
 	}
 	tetromino->type = queue[index++];
-	tetromino->colour = TETROMINO_COLORS[tetromino->type];
+	tetromino->colour = tetromino_colours[tetromino->type];
 }
 
 void	draw_current_tetromino(t_tetris *tetris)
