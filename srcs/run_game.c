@@ -99,6 +99,7 @@ void	detect_input(t_tetris *tetris)
 			if (!is_valid_position(tetris, tetris->current->coord[i].x - 1, tetris->current->coord[i].y))
 				return ;
 		}
+		tetris->current->times_moved++;
 		i = -1;
 		while (++i < 4)
 		{
@@ -115,6 +116,7 @@ void	detect_input(t_tetris *tetris)
 			if (!is_valid_position(tetris, tetris->current->coord[i].x + 1, tetris->current->coord[i].y))
 				return ;
 		}
+		tetris->current->times_moved++;
 		i = -1;
 		while (++i < 4)
 		{
@@ -131,6 +133,7 @@ void	detect_input(t_tetris *tetris)
 			if (!is_valid_position(tetris, tetris->current->coord[i].x - 1, tetris->current->coord[i].y))
 				return ;
 		}
+		tetris->current->times_moved++;
 		i = -1;
 		while (++i < 4)
 		{
@@ -147,6 +150,7 @@ void	detect_input(t_tetris *tetris)
 			if (!is_valid_position(tetris, tetris->current->coord[i].x + 1, tetris->current->coord[i].y))
 				return ;
 		}
+		tetris->current->times_moved++;
 		i = -1;
 		while (++i < 4)
 		{

@@ -94,4 +94,3 @@ void rotate_tetromino(t_tetris *tetris)
 	if (++tetris->current->times_moved)
 		check_lock(tetris);
 }
-

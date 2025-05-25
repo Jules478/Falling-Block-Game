@@ -51,7 +51,6 @@ int	main()
 	init_game(&tetris);
 	SetTargetFPS(60);
 	create_window(&tetris);
-	InitWindow(tetris.width, tetris.height, "Tetris");
 	draw_controls(&tetris);
 	create_tetromino(&tetris, tetris.current);
 	create_tetromino(&tetris, tetris.next);

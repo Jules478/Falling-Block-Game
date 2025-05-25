@@ -68,28 +68,17 @@ void	init_game(t_tetris *tetris)
 
 void	create_window(t_tetris *tetris)
 {
-	// float	h;
-	// float	w;
+	float	h;
+	float	w;
 
-	// if (GetMonitorCount() < 1)
-	// {
-	// 	tetris->width = 500;
-	// 	tetris->height = 600;
-	// 	return ;
-	// }
-	// h = (float)GetMonitorHeight(1);
-	// w = (float)GetMonitorWidth(1);
-	// tetris->height = (int)(h / 1.8);
-	// tetris->width = (int)(w / 3.84);
-	// printf("width: %d\n", tetris->width);
-	// printf("height: %d\n", tetris->height);
-	tetris->height = 1200;
-	tetris->width = 1000;
-	tetris->height = 960;
-	tetris->width = 800;
-	// tetris->height = 600;
-	// tetris->width = 500;
+	InitWindow(100, 100, "Tetris");
+	h = (float)GetMonitorHeight(0);
+	w = (float)GetMonitorWidth(0);
+	tetris->height = (int)(h * 0.89);
+	tetris->width = (int)(w * 0.4);
+	CloseWindow();
 	tetris->size = tetris->height / RATIO;
 	tetris->tet_size = tetris->size - 1;
-
+	InitWindow(tetris->width, tetris->height, "Tetris");
+	SetWindowPosition(((int)w - tetris->width) / 2, (((int)h - tetris->height) / 2) - 45);
 }
