@@ -63,13 +63,21 @@ void	game_over_screen(t_tetris *tetris)
 				DrawText("Enter Name:", (7 * tetris->size) + 5, (10 * tetris->size) + 5, tetris->size - 1, WHITE);
 				c = write_name(name);
 				if (c > 0)
-				{
 					DrawText(name, (9 * tetris->size) + 5, (11 * tetris->size) + 5, tetris->size - 1, WHITE);
-				}
 				else if (c == -1)
 					export_name_to_score(tetris, name);
 			}
 		}
+	}
+	else
+	{
+		DrawText("New High Score!", (6 * tetris->size) + 5, (9 * tetris->size) + 5, tetris->size - 1, WHITE);
+		DrawText("Enter Name:", (7 * tetris->size) + 5, (10 * tetris->size) + 5, tetris->size - 1, WHITE);
+		c = write_name(name);
+		if (c > 0)
+			DrawText(name, (9 * tetris->size) + 5, (11 * tetris->size) + 5, tetris->size - 1, WHITE);
+		else if (c == -1)
+			export_name_to_score(tetris, name);
 	}
 }
 
